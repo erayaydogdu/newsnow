@@ -78,26 +78,54 @@
     "color": "orange",
     "interval": 3600000
   },
+  "bbc": {
+    "redirect": "bbc-business",
+    "name": "BBC",
+    "title": "Business",
+    "column": "finance",
+    "home": "https://www.bbc.com",
+    "color": "red",
+    "interval": 1800000
+  },
   "bbc-business": {
     "name": "BBC",
     "title": "Business",
     "column": "finance",
-    "home": "https://www.bbc.com/news/business",
+    "home": "https://www.bbc.com",
     "color": "red",
     "interval": 1800000
   },
-  "yahoo-finance": {
-    "name": "Yahoo Finance",
+  "yahoo": {
+    "redirect": "yahoo-finance",
+    "name": "Yahoo",
+    "title": "Finance",
     "column": "finance",
     "home": "https://finance.yahoo.com",
     "color": "indigo",
+    "interval": 1800000
+  },
+  "yahoo-finance": {
+    "name": "Yahoo",
+    "title": "Finance",
+    "column": "finance",
+    "home": "https://finance.yahoo.com",
+    "color": "indigo",
+    "interval": 1800000
+  },
+  "reuters": {
+    "redirect": "reuters-business",
+    "name": "Reuters",
+    "title": "Business",
+    "column": "finance",
+    "home": "https://www.reuters.com",
+    "color": "orange",
     "interval": 1800000
   },
   "reuters-business": {
     "name": "Reuters",
     "title": "Business",
     "column": "finance",
-    "home": "https://www.reuters.com/business",
+    "home": "https://www.reuters.com",
     "color": "orange",
     "interval": 1800000
   }

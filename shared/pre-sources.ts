@@ -592,28 +592,41 @@ export const originSources = {
     interval: Time.Slow,
     home: "https://mediastack.com",
   },
-  "bbc-business": {
+  "bbc": {
     name: "BBC",
-    title: "Business",
-    column: "finance",
     color: "red",
-    interval: Time.Common,
-    home: "https://www.bbc.com/news/business",
+    home: "https://www.bbc.com",
+    sub: {
+      business: {
+        title: "Business",
+        column: "finance",
+        interval: Time.Common,
+      },
+    },
   },
-  "yahoo-finance": {
-    name: "Yahoo Finance",
-    column: "finance",
+  "yahoo": {
+    name: "Yahoo",
     color: "indigo",
-    interval: Time.Common,
     home: "https://finance.yahoo.com",
+    sub: {
+      finance: {
+        title: "Finance",
+        column: "finance",
+        interval: Time.Common,
+      },
+    },
   },
-  "reuters-business": {
+  "reuters": {
     name: "Reuters",
-    title: "Business",
-    column: "finance",
     color: "orange",
-    interval: Time.Common,
-    home: "https://www.reuters.com/business",
+    home: "https://www.reuters.com",
+    sub: {
+      business: {
+        title: "Business",
+        column: "finance",
+        interval: Time.Common,
+      },
+    },
   },
 } as const satisfies Record<string, OriginSource>
 
