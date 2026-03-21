@@ -531,6 +531,7 @@ export const originSources = {
   },
   "marketaux": {
     name: "Marketaux",
+    type: "realtime",
     column: "finance",
     color: "emerald",
     interval: Time.Common,
@@ -538,6 +539,7 @@ export const originSources = {
   },
   "stockdata": {
     name: "Stockdata",
+    type: "realtime",
     column: "finance",
     color: "violet",
     interval: Time.Common,
@@ -545,6 +547,7 @@ export const originSources = {
   },
   "alphavantage": {
     name: "Alpha Vantage",
+    type: "realtime",
     column: "finance",
     color: "green",
     interval: Time.Slow,
@@ -552,6 +555,7 @@ export const originSources = {
   },
   "polygon": {
     name: "Polygon.io",
+    type: "realtime",
     column: "finance",
     color: "purple",
     interval: Time.Common,
@@ -559,6 +563,7 @@ export const originSources = {
   },
   "newsapi": {
     name: "NewsAPI",
+    type: "realtime",
     column: "finance",
     color: "sky",
     interval: Time.Common,
@@ -566,6 +571,7 @@ export const originSources = {
   },
   "gnews": {
     name: "GNews",
+    type: "realtime",
     column: "finance",
     color: "cyan",
     interval: Time.Common,
@@ -573,6 +579,7 @@ export const originSources = {
   },
   "eodhd": {
     name: "EODHD",
+    type: "realtime",
     column: "finance",
     color: "amber",
     interval: Time.Slow,
@@ -580,6 +587,7 @@ export const originSources = {
   },
   "currentsapi": {
     name: "Currents API",
+    type: "realtime",
     column: "finance",
     color: "rose",
     interval: Time.Common,
@@ -587,6 +595,7 @@ export const originSources = {
   },
   "mediastack": {
     name: "Mediastack",
+    type: "realtime",
     column: "finance",
     color: "orange",
     interval: Time.Slow,
@@ -599,6 +608,7 @@ export const originSources = {
     sub: {
       business: {
         title: "Business",
+        type: "realtime",
         column: "finance",
         interval: Time.Common,
       },
@@ -611,6 +621,7 @@ export const originSources = {
     sub: {
       finance: {
         title: "Finance",
+        type: "realtime",
         column: "finance",
         interval: Time.Common,
       },
@@ -623,6 +634,7 @@ export const originSources = {
     sub: {
       business: {
         title: "Business",
+        type: "realtime",
         column: "finance",
         interval: Time.Common,
       },
