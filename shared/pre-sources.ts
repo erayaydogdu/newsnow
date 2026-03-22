@@ -68,10 +68,9 @@ export const originSources = {
     home: "https://mktnews.net",
     color: "indigo",
     interval: Time.Realtime,
-    disable: true,
     sub: {
       flash: {
-        title: "快讯",
+        title: "News",
       },
     },
   },
@@ -278,8 +277,7 @@ export const originSources = {
     color: "orange",
     column: "tech",
     type: "hottest",
-    home: "https://news.ycombinator.com/",
-    disable: true,
+    home: "https://news.ycombinator.com/"
   },
   "producthunt": {
     name: "Product Hunt",
