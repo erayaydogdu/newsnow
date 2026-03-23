@@ -1,4 +1,29 @@
 {
+  "mktnews": {
+    "redirect": "mktnews-flash",
+    "name": "MKTNews",
+    "column": "finance",
+    "home": "https://mktnews.net",
+    "color": "indigo",
+    "interval": 120000,
+    "title": "News"
+  },
+  "mktnews-flash": {
+    "name": "MKTNews",
+    "column": "finance",
+    "home": "https://mktnews.net",
+    "color": "indigo",
+    "interval": 120000,
+    "title": "News"
+  },
+  "hackernews": {
+    "name": "Hacker News",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://news.ycombinator.com/",
+    "color": "orange",
+    "interval": 600000
+  },
   "producthunt": {
     "name": "Product Hunt",
     "type": "hottest",
@@ -9,7 +34,7 @@
   },
   "finnhub": {
     "name": "Finnhub",
-    "type": "realtime",
+    "type": "hottest",
     "column": "finance",
     "home": "https://finnhub.io",
     "color": "blue",
@@ -17,6 +42,7 @@
   },
   "marketaux": {
     "name": "Marketaux",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.marketaux.com",
     "color": "emerald",
@@ -24,6 +50,7 @@
   },
   "stockdata": {
     "name": "Stockdata",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.stockdata.org",
     "color": "violet",
@@ -31,6 +58,7 @@
   },
   "alphavantage": {
     "name": "Alpha Vantage",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.alphavantage.co",
     "color": "green",
@@ -38,6 +66,7 @@
   },
   "polygon": {
     "name": "Polygon.io",
+    "type": "hottest",
     "column": "finance",
     "home": "https://polygon.io",
     "color": "purple",
@@ -45,6 +74,7 @@
   },
   "newsapi": {
     "name": "NewsAPI",
+    "type": "hottest",
     "column": "finance",
     "home": "https://newsapi.org",
     "color": "sky",
@@ -52,6 +82,7 @@
   },
   "gnews": {
     "name": "GNews",
+    "type": "hottest",
     "column": "finance",
     "home": "https://gnews.io",
     "color": "cyan",
@@ -59,6 +90,7 @@
   },
   "eodhd": {
     "name": "EODHD",
+    "type": "hottest",
     "column": "finance",
     "home": "https://eodhd.com",
     "color": "amber",
@@ -66,6 +98,7 @@
   },
   "currentsapi": {
     "name": "Currents API",
+    "type": "hottest",
     "column": "finance",
     "home": "https://currentsapi.services",
     "color": "rose",
@@ -73,6 +106,7 @@
   },
   "mediastack": {
     "name": "Mediastack",
+    "type": "hottest",
     "column": "finance",
     "home": "https://mediastack.com",
     "color": "orange",
@@ -81,52 +115,58 @@
   "bbc": {
     "redirect": "bbc-business",
     "name": "BBC",
-    "title": "Business",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.bbc.com",
     "color": "red",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Business"
   },
   "bbc-business": {
     "name": "BBC",
-    "title": "Business",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.bbc.com",
     "color": "red",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Business"
   },
   "yahoo": {
     "redirect": "yahoo-finance",
     "name": "Yahoo",
-    "title": "Finance",
+    "type": "hottest",
     "column": "finance",
     "home": "https://finance.yahoo.com",
     "color": "indigo",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Finance"
   },
   "yahoo-finance": {
     "name": "Yahoo",
-    "title": "Finance",
+    "type": "hottest",
     "column": "finance",
     "home": "https://finance.yahoo.com",
     "color": "indigo",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Finance"
   },
   "reuters": {
     "redirect": "reuters-business",
     "name": "Reuters",
-    "title": "Business",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.reuters.com",
     "color": "orange",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Business"
   },
   "reuters-business": {
     "name": "Reuters",
-    "title": "Business",
+    "type": "hottest",
     "column": "finance",
     "home": "https://www.reuters.com",
     "color": "orange",
-    "interval": 1800000
+    "interval": 1800000,
+    "title": "Business"
   }
 }

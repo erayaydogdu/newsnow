@@ -14,63 +14,63 @@ dayjs.extend(isSameOrBefore)
 dayjs.extend(weekday)
 
 /**
- * 传入任意时区的时间（不携带时区），转换为 UTC 时间
+ * Convert a time in any timezone (without timezone info) to UTC time
  */
 export function tranformToUTC(date: string, format?: string, timezone: string = "Asia/Shanghai"): number {
   if (!format) return dayjs.tz(date, timezone).valueOf()
   return dayjs.tz(date, format, timezone).valueOf()
 }
 
-// cloudflare 里 dayjs() 结果为 0，不能放在 top
+// In Cloudflare, dayjs() returns 0, so this cannot be placed at the top level
 function words() {
   return [
     {
       startAt: dayjs(),
-      regExp: /^(?:今[天日]|to?day?)(.*)/,
+      regExp: /^to?day?(.*)/,
     },
     {
       startAt: dayjs().subtract(1, "days"),
-      regExp: /^(?:昨[天日]|y(?:ester)?day?)(.*)/,
+      regExp: /^y(?:ester)?day?(.*)/,
     },
     {
       startAt: dayjs().subtract(2, "days"),
-      regExp: /^(?:前天|(?:the)?d(?:ay)?b(?:eforeyesterda)?y)(.*)/,
+      regExp: /^(?:the)?d(?:ay)?b(?:eforeyesterda)?y(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(1)) ? dayjs().weekday(1).subtract(1, "week") : dayjs().weekday(1),
-      regExp: /^(?:周|星期)一(.*)/,
+      regExp: /^mon(?:day)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(2)) ? dayjs().weekday(2).subtract(1, "week") : dayjs().weekday(2),
-      regExp: /^(?:周|星期)二(.*)/,
+      regExp: /^tue(?:sday)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(3)) ? dayjs().weekday(3).subtract(1, "week") : dayjs().weekday(3),
-      regExp: /^(?:周|星期)三(.*)/,
+      regExp: /^wed(?:nesday)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(4)) ? dayjs().weekday(4).subtract(1, "week") : dayjs().weekday(4),
-      regExp: /^(?:周|星期)四(.*)/,
+      regExp: /^thu(?:rsday)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(5)) ? dayjs().weekday(5).subtract(1, "week") : dayjs().weekday(5),
-      regExp: /^(?:周|星期)五(.*)/,
+      regExp: /^fri(?:day)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(6)) ? dayjs().weekday(6).subtract(1, "week") : dayjs().weekday(6),
-      regExp: /^(?:周|星期)六(.*)/,
+      regExp: /^sat(?:urday)?(.*)/,
     },
     {
       startAt: dayjs().isSameOrBefore(dayjs().weekday(7)) ? dayjs().weekday(7).subtract(1, "week") : dayjs().weekday(7),
-      regExp: /^(?:周|星期)[天日](.*)/,
+      regExp: /^sun(?:day)?(.*)/,
     },
     {
       startAt: dayjs().add(1, "days"),
-      regExp: /^(?:明[天日]|y(?:ester)?day?)(.*)/,
+      regExp: /^tomorrow(.*)/,
     },
     {
       startAt: dayjs().add(2, "days"),
-      regExp: /^(?:[后後][天日]|(?:the)?d(?:ay)?a(?:fter)?t(?:omrrow)?)(.*)/,
+      regExp: /^(?:the)?d(?:ay)?a(?:fter)?t(?:omrrow)?(.*)/,
     },
   ]
 }
@@ -78,52 +78,52 @@ function words() {
 const patterns = [
   {
     unit: "years",
-    regExp: /(\d+)(?:年|y(?:ea)?rs?)/,
+    regExp: /(\d+)y(?:ea)?rs?/,
   },
   {
     unit: "months",
-    regExp: /(\d+)(?:[个個]?月|months?)/,
+    regExp: /(\d+)months?/,
   },
   {
     unit: "weeks",
-    regExp: /(\d+)(?:周|[个個]?星期|weeks?)/,
+    regExp: /(\d+)weeks?/,
   },
   {
     unit: "days",
-    regExp: /(\d+)(?:天|日|d(?:ay)?s?)/,
+    regExp: /(\d+)d(?:ay)?s?/,
   },
   {
     unit: "hours",
-    regExp: /(\d+)(?:[个個]?(?:小?时|[時点點])|h(?:(?:ou)?r)?s?)/,
+    regExp: /(\d+)h(?:(?:ou)?r)?s?/,
   },
   {
     unit: "minutes",
-    regExp: /(\d+)(?:分[鐘钟]?|m(?:in(?:ute)?)?s?)/,
+    regExp: /(\d+)m(?:in(?:ute)?)?s?/,
   },
   {
     unit: "seconds",
-    regExp: /(\d+)(?:秒[鐘钟]?|s(?:ec(?:ond)?)?s?)/,
+    regExp: /(\d+)s(?:ec(?:ond)?)?s?/,
   },
 ]
 
 const patternSize = Object.keys(patterns).length
 
 /**
- * 预处理日期字符串
- * @param {string} date 原始日期字符串
+ * Preprocess a date string
+ * @param {string} date Raw date string
  */
 function toDate(date: string) {
   return date
     .toLowerCase()
-    .replace(/(^an?\s)|(\san?\s)/g, "1") // 替换 `a` 和 `an` 为 `1`
-    .replace(/几|幾/g, "3") // 如 `几秒钟前` 视作 `3秒钟前`
+    .replace(/(^an?\s)|(\san?\s)/g, "1") // Replace `a` and `an` with `1`
+    .replace(/few/g, "3") // e.g. treat `a few seconds ago` as `3 seconds ago`
     .replace(/[\s,]/g, "")
-} // 移除所有空格
+} // Remove all spaces
 
 /**
- * 将 `['\d+时', ..., '\d+秒']` 转换为 `{ hours: \d+, ..., seconds: \d+ }`
- * 用于描述时间长度
- * @param {Array.<string>} matches 所有匹配结果
+ * Convert `['\d+hours', ..., '\d+seconds']` to `{ hours: \d+, ..., seconds: \d+ }`
+ * Used to describe time durations
+ * @param {Array.<string>} matches All match results
  */
 function toDurations(matches: string[]) {
   const durations: Record<string, string> = {}
@@ -144,45 +144,51 @@ function toDurations(matches: string[]) {
 export const parseDate = (date: string | number, ...options: any) => dayjs(date, ...options).toDate()
 
 export function parseRelativeDate(date: string, timezone: string = "UTC") {
-  if (date === "刚刚") return new Date()
-  // 预处理日期字符串 date
+  if (date === "just now") return new Date()
+  // Preprocess the date string
 
   const theDate = toDate(date)
 
-  // 将 `\d+年\d+月...\d+秒前` 分割成 `['\d+年', ..., '\d+秒前']`
+  // Split `\d+years\d+months...\d+seconds ago` into `['\d+years', ..., '\d+seconds ago']`
 
   const matches = theDate.match(/\D*\d+(?![:\-/]|(a|p)m)\D+/g)
   const offset = dayjs.duration({ hours: (dayjs().tz(timezone).utcOffset() - dayjs().utcOffset()) / 60 })
 
   if (matches) {
-    // 获得最后的时间单元，如 `\d+秒前`
+    // Get the last time unit, e.g. `\d+seconds ago`
 
     const lastMatch = matches.pop()
 
     if (lastMatch) {
-      // 若最后的时间单元含有 `前`、`以前`、`之前` 等标识字段，减去相应的时间长度
-      // 如 `1分10秒前`
+      // If the last time unit ends with `ago`, subtract the corresponding duration
+      // e.g. `1min 10sec ago`
 
-      const beforeMatches = /(.*)(?:前|ago)$/.exec(lastMatch)
+      const beforeMatches = /(.*)ago$/.exec(lastMatch)
       if (beforeMatches) {
         matches.push(beforeMatches[1])
-        // duration 这个插件有 bug，他会重新实现 subtract 这个方法，并且不会处理 weeks。用 ms 就可以调用默认的方法
+        // The duration plugin has a bug: it reimplements subtract and doesn't handle weeks. Using ms calls the default method
         return dayjs().subtract(dayjs.duration(toDurations(matches))).toDate()
       }
 
-      // 若最后的时间单元含有 `后`、`以后`、`之后` 等标识字段，加上相应的时间长度
-      // 如 `1分10秒后`
+      // If the string starts with `in`, add the corresponding duration
+      // e.g. `in 10 minutes`, `in 1h 1m 1s`
 
-      const afterMatches = /(?:^in(.*)|(.*)[后後])$/.exec(lastMatch)
-      if (afterMatches) {
-        matches.push(afterMatches[1] ?? afterMatches[2])
+      const firstForIn = matches.length > 0 ? matches[0] : lastMatch
+      const inMatch = /^in(.*)/.exec(firstForIn)
+      if (inMatch) {
+        if (matches.length > 0) {
+          matches[0] = inMatch[1]
+          matches.push(lastMatch)
+        } else {
+          matches.push(inMatch[1])
+        }
         return dayjs()
           .add(dayjs.duration(toDurations(matches)))
           .toDate()
       }
 
-      // 以下处理日期字符串 date 含有特殊词的情形
-      // 如 `今天1点10分`
+      // Handle date strings containing special words
+      // e.g. `today 1:10`
 
       matches.push(lastMatch)
     }
@@ -194,7 +200,7 @@ export function parseRelativeDate(date: string, timezone: string = "UTC") {
         if (wordMatches) {
           matches.unshift(wordMatches[1])
 
-          // 取特殊词对应日零时为起点，加上相应的时间长度
+          // Start from midnight of the special word's corresponding day, then add the duration
 
           return dayjs.tz(w.startAt
             .set("hour", 0)
@@ -208,8 +214,8 @@ export function parseRelativeDate(date: string, timezone: string = "UTC") {
       }
     }
   } else {
-    // 若日期字符串 date 不匹配 patterns 中所有模式，则默认为 `特殊词 + 标准时间格式` 的情形，此时直接将特殊词替换为对应日期
-    // 如今天为 `2022-03-22`，则 `今天 20:00` => `2022-03-22 20:00`
+    // If the date string doesn't match any pattern, assume it's `special word + standard time format`
+    // e.g. if today is `2022-03-22`, then `today 20:00` => `2022-03-22 20:00`
 
     for (const w of words()) {
       const wordMatches = w.regExp.exec(theDate)
