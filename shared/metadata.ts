@@ -5,24 +5,31 @@ import type { ColumnID, HiddenColumnID, Metadata, SourceID } from "./types"
 export const columns = {
   china: {
     zh: "国内",
+    en: "China"
   },
   world: {
     zh: "国际",
+    en: "World"
   },
   tech: {
     zh: "科技",
+    en: "Tech"
   },
   finance: {
     zh: "财经",
+    en: "Finance"
   },
   focus: {
     zh: "关注",
+    en: "Focus"
   },
   realtime: {
     zh: "实时",
+    en: "Realtime"
   },
   hottest: {
     zh: "最热",
+    en: "Hottest"
   },
 } as const
 
@@ -33,22 +40,22 @@ export const metadata: Metadata = typeSafeObjectFromEntries(typeSafeObjectEntrie
   switch (k) {
     case "focus":
       return [k, {
-        name: v.zh,
+        name: v.en,
         sources: [] as SourceID[],
       }]
     case "hottest":
       return [k, {
-        name: v.zh,
+        name: v.en,
         sources: typeSafeObjectEntries(sources).filter(([, v]) => v.type === "hottest" && !v.redirect).map(([k]) => k),
       }]
     case "realtime":
       return [k, {
-        name: v.zh,
+        name: v.en,
         sources: typeSafeObjectEntries(sources).filter(([, v]) => v.type === "realtime" && !v.redirect).map(([k]) => k),
       }]
     default:
       return [k, {
-        name: v.zh,
+        name: v.en,
         sources: typeSafeObjectEntries(sources).filter(([, v]) => v.column === k && !v.redirect).map(([k]) => k),
       }]
   }
